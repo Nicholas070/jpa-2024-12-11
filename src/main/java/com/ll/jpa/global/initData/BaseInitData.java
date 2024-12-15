@@ -13,9 +13,12 @@ import org.springframework.context.annotation.Configuration;
     @RequiredArgsConstructor
     public class BaseInitData {
         private final PostService postService;
+
         @Bean
         public ApplicationRunner BaseInitDataApplicationRunner() {
             return args -> {
+                if (postService.count() > 0 ) return;
+
                 Post post1 = postService.write("title1", "content1");
                 System.out.println(post1.getId() + "번 글이 생성됨");
 
